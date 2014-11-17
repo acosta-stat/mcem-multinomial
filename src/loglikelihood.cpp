@@ -57,10 +57,11 @@ NumericMatrix kX, NumericMatrix kZ) {
       //wijh1 = wijh1 + exp(wijh0);
     }
     double mex = max(sumex);
-    for (int ii = 0; ii < kC - 1; ii++)
-      sumex(ii) = sumex(ii) - mex;
-    sumex = exp(sumex);
-    double wijh1 = exp(mex) * sum(sumex);
+    double wijh1 = 0;
+    for (int ii = 0; ii < kC - 1; ii++){
+      wijh1 = wijh1 + exp(sumex(ii) - mex);
+    }
+    wijh1 = exp(mex) * wijh1;
     value = value - log(1 + wijh1);
     //std::cout<<log(1 + wijh1)<<'\n';
   }
@@ -88,5 +89,4 @@ NumericMatrix kX, NumericMatrix kZ) {
     std::cout<<xx(i)<<'\n';
   std::cout<<sxx<<'\n';
   */
-  
 }

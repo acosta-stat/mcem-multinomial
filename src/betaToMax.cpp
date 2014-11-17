@@ -34,20 +34,28 @@ NumericMatrix kX, NumericMatrix kZ) {
      
     // Sum with the log 
     for (int m = 0; m < kK; m++) {
-      double wijh1 = 0;
+      NumericVector sumex(kC - 1);
+    
       for (int h = 0; h < kC - 1; h++) {
         wijh0 = 0;
         for (int j = 0; j < kP; j++) {
           wijh0 = wijh0 + kX(i, j) * kBeta(j, h);
         }
         for (int j = 0; j < kR; j++) {
-          wijh0 = wijh0 + kZ(i, j) * kU(m * kR + j, h);
+          wijh0 = wijh0 + kZ(i, j) * kU(j, h);
         }
-        wijh1 = wijh1 + exp(wijh0);
+        sumex(h) = wijh0;
+        //wijh1 = wijh1 + exp(wijh0);
       }
+      double mex = max(sumex);
+      double wijh1 = 0;
+      for (int ii = 0; ii < kC - 1; ii++){
+        wijh1 = wijh1 + exp(sumex(ii) - mex);
+      }
+      wijh1 = exp(mex) * wijh1;
       value = value - log(1 + wijh1)/kK;
+      //std::cout<<log(1 + wijh1)<<'\n';
     }
-     
   }
   return value;
 }
