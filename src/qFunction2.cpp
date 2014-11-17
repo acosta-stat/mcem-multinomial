@@ -10,6 +10,9 @@ using namespace Rcpp;
 
 // For more on using Rcpp click the Help button on the editor toolbar
 
+
+// This function is bad and I should feel bad
+
 // [[Rcpp::export]]
 double qFunction2(NumericMatrix kU, IntegerVector kY, NumericMatrix kBeta, NumericVector kLambda, 
 NumericMatrix kX, NumericMatrix kZ) {

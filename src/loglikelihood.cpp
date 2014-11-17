@@ -43,7 +43,8 @@ NumericMatrix kX, NumericMatrix kZ) {
     }
 
     // Sum with the log
-    double wijh1 = 0;
+    NumericVector sumex(kC - 1);
+    
     for (int h = 0; h < kC - 1; h++) {
       wijh0 = 0;
       for (int j = 0; j < kP; j++) {
@@ -52,9 +53,16 @@ NumericMatrix kX, NumericMatrix kZ) {
       for (int j = 0; j < kR; j++) {
         wijh0 = wijh0 + kZ(i, j) * kU(j, h);
       }
-      wijh1 = wijh1 + exp(wijh0);
+      sumex(h) = wijh0;
+      //wijh1 = wijh1 + exp(wijh0);
     }
+    double mex = max(sumex);
+    for (int ii = 0; ii < kC - 1; ii++)
+      sumex(ii) = sumex(ii) - mex;
+    sumex = exp(sumex);
+    double wijh1 = exp(mex) * sum(sumex);
     value = value - log(1 + wijh1);
+    //std::cout<<log(1 + wijh1)<<'\n';
   }
    
   // Last sum (on the U-s)
@@ -64,25 +72,21 @@ NumericMatrix kX, NumericMatrix kZ) {
       tmp0 = tmp0 - 0.5 * log(kLambda(j)) - 0.5 / kLambda(j) * kU(h, j) * kU(h, j);
     }
   }
-  
+
   return value + tmp0;
 
   // std::vector<double> wijh(kY.size());
   /*
-  for (int i = 0; i < kN - 1; i++) {
-    for (int j = 0; j < kNi[i]; j++) {
-       for (int h = 0; h < kC - 1; h++) {
-         double wijh = 0;
-         for (int ii = 0; ii < kBeta.nrow(); ii++) {
-           wijh = wijh + kX[counter, ii] * kBeta[ii, h];
-         }
-         for (int ii = 0; ii < kZ.ncol(); ii++) {
-           wijh = wijh + kZ[counter, ii] * U[ii, h];
-         }
-         std::cout<<wijh<<'\n';
-       }
-     }
-   }
-   */
-   // value = indicator(1,1);
+  NumericVector xx(6);
+  for (int i = 0; i < 6; i++)
+    xx(i) = xx(i) + R::rnorm(0, 1);
+  xx = exp(xx);
+  double mxx = max(xx);
+  std::cout<<mxx<<'\n';
+  double sxx = sum(xx);
+  for (int i = 0; i < 6; i++)
+    std::cout<<xx(i)<<'\n';
+  std::cout<<sxx<<'\n';
+  */
+  
 }
