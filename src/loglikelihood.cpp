@@ -63,7 +63,21 @@ NumericMatrix kX, NumericMatrix kZ) {
     }
     wijh1 = exp(mex) * wijh1;
     value = value - log(1 + wijh1);
-    //std::cout<<log(1 + wijh1)<<'\n';
+    
+    /*
+    double wijh1 = 0;
+    for (int h = 0; h < kC - 1; h++) {
+      wijh0 = 0;
+      for (int j = 0; j < kP; j++) {
+        wijh0 = wijh0 + kX(i, j) * kBeta(j, h);
+      }
+      for (int j = 0; j < kR; j++) {
+        wijh0 = wijh0 + kZ(i, j) * kU(j, h);
+      }
+      wijh1 = wijh1 + exp(wijh0);
+    }
+    value = value - log(1 + wijh1);
+    */
   }
    
   // Last sum (on the U-s)

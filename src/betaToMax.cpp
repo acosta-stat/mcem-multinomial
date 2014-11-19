@@ -42,7 +42,7 @@ NumericMatrix kX, NumericMatrix kZ) {
           wijh0 = wijh0 + kX(i, j) * kBeta(j, h);
         }
         for (int j = 0; j < kR; j++) {
-          wijh0 = wijh0 + kZ(i, j) * kU(j, h);
+          wijh0 = wijh0 + kZ(i, j) * kU(m * kR + j, h);
         }
         sumex(h) = wijh0;
         //wijh1 = wijh1 + exp(wijh0);

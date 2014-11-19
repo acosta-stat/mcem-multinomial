@@ -16,9 +16,6 @@ NumericMatrix kX, NumericMatrix kZ);
 double qFunction2(NumericMatrix kU, IntegerVector kY, NumericMatrix kBeta, NumericVector kLambda, 
 NumericMatrix kX, NumericMatrix kZ);
 
-NumericMatrix uSamplerCpp(NumericMatrix kU, IntegerVector kY, NumericMatrix kBeta, NumericVector kLambda, 
-NumericMatrix kX, NumericMatrix kZ, int B, double kC0);
-
 NumericMatrix uSamplerRWCpp(NumericMatrix kU, IntegerVector kY, NumericMatrix kBeta, NumericVector kLambda, 
 NumericMatrix kX, NumericMatrix kZ, int B, double kC0);
 

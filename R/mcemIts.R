@@ -16,7 +16,7 @@ mcem.its <- function(kY, kX, kZ, it = 10, inc = 0.05, tk = 1000, sd0 = 0.05) {
   for (i in 2:it) {
     uSample0 <- uSamplerRWCpp(as.matrix(uStart), kY, as.matrix(kBeta[(kP * (i - 2) + 1):(kP * (i - 1)), ]), kLambda[i - 1, ], as.matrix(kX), kZ, tk, sd0)
     kLambda[i, ] <- lambdaMaxCpp(uSample0)
-    tmp0 <- optim(par = as.vector(kBeta[(kP * (i - 1) + 1):(kP * i), ]), fn = betaToMaxR, kU = uSample0, kY = kY, kLambda = kLambda[i, ], kX = kX, kZ = kZ, method = 'BF' )
+    tmp0 <- optim(par = as.vector(kBeta[(kP * (i - 2) + 1):(kP * (i - 1)), ]), fn = betaToMaxR, kU = uSample0, kY = kY, kLambda = kLambda[i, ], kX = kX, kZ = kZ, method = 'BF' )
     if (tmp0$convergence > 0) {
       print(tmp0)
       stop("Maximization went wrong at iteration number ", i, ".")
